@@ -1,10 +1,10 @@
-package org.catfarm.cat;
+package com.novi.techiteasy;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CatApplicationTests {
+class TechItEasyApplicationTests {
 
     @Test
     void contextLoads() {
