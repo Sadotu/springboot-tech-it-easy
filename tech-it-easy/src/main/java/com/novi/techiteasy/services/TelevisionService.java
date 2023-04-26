@@ -1,8 +1,9 @@
 package com.novi.techiteasy.services;
 
-import com.novi.techiteasy.Television;
+import com.novi.techiteasy.models.Television;
 import com.novi.techiteasy.exceptions.RecordNotFoundException;
 import com.novi.techiteasy.repositories.TelevisionRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,11 +41,10 @@ public class TelevisionService {
 
     public Television updateTelevision(Long id, Television updatedTelevision) {
         Television existingTelevision = getTelevisionById(id);
-        existingTelevision.setBrand(updatedTelevision.getBrand());
-        existingTelevision.setModel(updatedTelevision.getModel());
-        existingTelevision.setType(updatedTelevision.getType());
+        BeanUtils.copyProperties(updatedTelevision, existingTelevision, "id");
         return televisionRepository.save(existingTelevision);
     }
+
 
     public void deleteTelevision(Long id) {
         Television television = getTelevisionById(id);

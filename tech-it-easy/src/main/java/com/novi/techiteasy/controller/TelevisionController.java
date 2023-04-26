@@ -1,6 +1,6 @@
 package com.novi.techiteasy.controller;
 
-import com.novi.techiteasy.Television;
+import com.novi.techiteasy.models.Television;
 import com.novi.techiteasy.services.TelevisionService;
 import com.novi.techiteasy.exceptions.RecordNotFoundException;
 
