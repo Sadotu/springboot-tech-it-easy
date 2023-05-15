@@ -32,21 +32,21 @@ public class TelevisionController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Television> createTelevision(
+    public ResponseEntity<TelevisionOutputDTO> createTelevision(
             @Validated @RequestBody TelevisionInputDTO televisionInputDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) { return ResponseEntity.badRequest().build(); }
         return ResponseEntity.status(HttpStatus.CREATED).body(televisionService.createTelevision(televisionInputDTO));
     }
 
     @PostMapping("/addmore")
-    public ResponseEntity<List<Television>> createTelevisions(
+    public ResponseEntity<List<TelevisionOutputDTO>> createTelevisions(
             @Validated @RequestBody List<TelevisionInputDTO> televisionsInputDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) { return ResponseEntity.badRequest().build(); }
         return new ResponseEntity<>(televisionService.createTelevisions(televisionsInputDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Television> updateTelevision(
+    public ResponseEntity<TelevisionOutputDTO> updateTelevision(
             @Validated @PathVariable Long id, @RequestBody TelevisionInputDTO televisionInputDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) { return ResponseEntity.badRequest().build(); }
         return ResponseEntity.ok(televisionService.updateTelevision(id, televisionInputDTO));

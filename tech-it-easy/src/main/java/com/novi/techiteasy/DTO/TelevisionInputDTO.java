@@ -2,8 +2,11 @@ package com.novi.techiteasy.DTO;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Getter
+@Setter
 public class TelevisionInputDTO {
 
     public Long id;

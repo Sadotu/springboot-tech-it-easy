@@ -18,49 +18,15 @@ public class TelevisionService {
     @Autowired
     private TelevisionRepository televisionRepository;
 
-//    public TelevisionOutputDTO transferModelToOutputDTO(Television television) {
-//        TelevisionOutputDTO televisionDTO = new TelevisionOutputDTO();
-//        BeanUtils.copyProperties(televisionDTO, television);
-//        return televisionDTO;
-//    }
-
-    public Television transferOutputDTOToModel(TelevisionOutputDTO televisionOutputDTO) {
-        Television television = new Television();
+    public TelevisionOutputDTO transferModelToOutputDTO(Television television) {
+        TelevisionOutputDTO televisionOutputDTO = new TelevisionOutputDTO();
         BeanUtils.copyProperties(television, televisionOutputDTO);
-        return television;
+        return televisionOutputDTO;
     }
 
-//    public TelevisionInputDTO transferModelToInputDTO(Television television) {
-//        TelevisionInputDTO televisionInputDTO = new TelevisionInputDTO();
-//        System.out.println(television.getName());
-//        BeanUtils.copyProperties(television, televisionInputDTO);
-//        System.out.println(televisionInputDTO.name);
-//        System.out.println(television.getName());
-//        return televisionInputDTO;
-//    }
-
     public Television transferInputDTOToModel(TelevisionInputDTO televisionInputDTO) {
-        System.out.println(televisionInputDTO.name);
         Television television = new Television();
-        //BeanUtils.copyProperties(televisionInputDTO, television, "id");
-        television.setId(televisionInputDTO.id);
-        television.setType(televisionInputDTO.type);
-        television.setBrand(televisionInputDTO.brand);
-        television.setName(televisionInputDTO.name);
-        television.setPrice(televisionInputDTO.price);
-        television.setAvailableSize(televisionInputDTO.availableSize);
-        television.setRefreshRate(televisionInputDTO.refreshRate);
-        television.setScreenType(televisionInputDTO.screenType);
-        television.setScreenQuality(televisionInputDTO.screenQuality);
-        television.setSmartTv(televisionInputDTO.smartTv);
-        television.setWifi(televisionInputDTO.wifi);
-        television.setVoiceControl(televisionInputDTO.voiceControl);
-        television.setHdr(televisionInputDTO.hdr);
-        television.setBluetooth(televisionInputDTO.bluetooth);
-        television.setAmbiLight(televisionInputDTO.ambiLight);
-        television.setOriginalStock(televisionInputDTO.originalStock);
-        television.setSold(televisionInputDTO.sold);
-        System.out.println(television.getName());
+        BeanUtils.copyProperties(televisionInputDTO, television, "id");
         return television;
     }
 
@@ -78,26 +44,31 @@ public class TelevisionService {
         return television;
     }
 
-    public Television createTelevision(TelevisionInputDTO televisionInputDTO) {
+    public TelevisionOutputDTO createTelevision(TelevisionInputDTO televisionInputDTO) {
         Television createdTelevision = televisionRepository.save(transferInputDTOToModel(televisionInputDTO));
-        return createdTelevision;
+        return transferModelToOutputDTO(createdTelevision);
     }
 
-    public List<Television> createTelevisions(List<TelevisionInputDTO> televisionsInputDTOList) {
+    public List<TelevisionOutputDTO> createTelevisions(List<TelevisionInputDTO> televisionsInputDTOList) {
         List<Television> createdTelevisions = new ArrayList<>();
         for (TelevisionInputDTO t : televisionsInputDTOList) {
             Television createdTelevision = televisionRepository.save(transferInputDTOToModel(t));
             createdTelevisions.add(createdTelevision);
         }
-        return createdTelevisions;
+        List<TelevisionOutputDTO> createdTelevisionsOutputDTO = new ArrayList<>();
+        for (Television t : createdTelevisions) {
+            TelevisionOutputDTO televisionOutputDTO = transferModelToOutputDTO(t);
+            createdTelevisionsOutputDTO.add(televisionOutputDTO);
+        }
+        return createdTelevisionsOutputDTO;
     }
 
-    public Television updateTelevision(Long id, TelevisionInputDTO updatedTelevisionInputDTO) {
+    public TelevisionOutputDTO updateTelevision(Long id, TelevisionInputDTO updatedTelevisionInputDTO) {
         Television existingTelevision = getTelevisionById(id);
         BeanUtils.copyProperties(updatedTelevisionInputDTO, existingTelevision, "id");
         Television updatedTelevision = televisionRepository.save(existingTelevision);
 
-        return updatedTelevision;
+        return transferModelToOutputDTO(updatedTelevision);
     }
 
     public void deleteTelevision(Long id) {

@@ -1,6 +1,10 @@
 package com.novi.techiteasy.DTO;
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class TelevisionOutputDTO {
 
     public Long id;
