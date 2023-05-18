@@ -1,11 +1,8 @@
 package com.novi.techiteasy.controller;
 
 import com.novi.techiteasy.DTO.Input.RemoteInputDTO;
-import com.novi.techiteasy.DTO.Input.TelevisionInputDTO;
 import com.novi.techiteasy.DTO.Output.RemoteOutputDTO;
-import com.novi.techiteasy.DTO.Output.TelevisionOutputDTO;
 import com.novi.techiteasy.models.Remote;
-import com.novi.techiteasy.models.Television;
 import com.novi.techiteasy.services.RemoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

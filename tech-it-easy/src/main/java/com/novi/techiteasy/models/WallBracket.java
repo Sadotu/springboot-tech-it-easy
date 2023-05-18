@@ -7,13 +7,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "ci_module")
-public class CiModule {
+@Table(name = "wall_bracket")
+public class WallBracket {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String size;
+    private Boolean ajustable;
     private String name;
-    private String type;
     private Double price;
 }
