@@ -1,17 +1,22 @@
-package com.novi.techiteasy.DTO;
+package com.novi.techiteasy.DTO.Input;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class TelevisionOutputDTO {
+public class TelevisionInputDTO {
 
     public Long id;
 
+    @NotBlank
     public String type;
     public String brand;
-    public String name;
+    @NotBlank
+    public String tvName;
+    @Min(1)
     public Double price;
     public Double availableSize;
     public Double refreshRate;

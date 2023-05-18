@@ -14,7 +14,7 @@ public class Television {
 
     private String brand;
 
-    private String name;
+    private String tvName;
 
     private Double price;
 
@@ -42,29 +42,6 @@ public class Television {
 
     private Integer sold;
 
-    public Television() {
-    }
-
-    public Television(Long id, String type, String brand, String name, Double price, Double availableSize, Double refreshRate, String screenType, String screenQuality, Boolean smartTv, Boolean wifi, Boolean voiceControl, Boolean hdr, Boolean bluetooth, Boolean ambiLight, Integer originalStock, Integer sold) {
-        this.id = id;
-        this.type = type;
-        this.brand = brand;
-        this.name = name;
-        this.price = price;
-        this.availableSize = availableSize;
-        this.refreshRate = refreshRate;
-        this.screenType = screenType;
-        this.screenQuality = screenQuality;
-        this.smartTv = smartTv;
-        this.wifi = wifi;
-        this.voiceControl = voiceControl;
-        this.hdr = hdr;
-        this.bluetooth = bluetooth;
-        this.ambiLight = ambiLight;
-        this.originalStock = originalStock;
-        this.sold = sold;
-    }
-
     public Long getId() {
         return id;
     }
@@ -89,12 +66,12 @@ public class Television {
         this.brand = brand;
     }
 
-    public String getName() {
-        return name;
+    public String getTvName() {
+        return tvName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTvName(String name) {
+        this.tvName = name;
     }
 
     public Double getPrice() {

@@ -1,7 +1,7 @@
 package com.novi.techiteasy.controller;
 
-import com.novi.techiteasy.DTO.TelevisionInputDTO;
-import com.novi.techiteasy.DTO.TelevisionOutputDTO;
+import com.novi.techiteasy.DTO.Input.TelevisionInputDTO;
+import com.novi.techiteasy.DTO.Output.TelevisionOutputDTO;
 import com.novi.techiteasy.models.Television;
 import com.novi.techiteasy.services.TelevisionService;
 
@@ -21,9 +21,18 @@ public class TelevisionController {
     @Autowired
     private TelevisionService televisionService;
 
-    @GetMapping
-    public List<Television> getAllTelevisions() {
-        return televisionService.getAllTelevisions();
+    @PostMapping("/add/tv")
+    public ResponseEntity<TelevisionOutputDTO> createTelevision(
+            @Validated @RequestBody TelevisionInputDTO televisionInputDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) { return ResponseEntity.badRequest().build(); }
+        return ResponseEntity.status(HttpStatus.CREATED).body(televisionService.createTelevision(televisionInputDTO));
+    }
+
+    @PostMapping("/addmore/tvs")
+    public ResponseEntity<List<TelevisionOutputDTO>> createTelevisions(
+            @Validated @RequestBody List<TelevisionInputDTO> televisionsInputDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) { return ResponseEntity.badRequest().build(); }
+        return new ResponseEntity<>(televisionService.createTelevisions(televisionsInputDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -31,18 +40,9 @@ public class TelevisionController {
         return ResponseEntity.ok(televisionService.getTelevisionById(id));
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<TelevisionOutputDTO> createTelevision(
-            @Validated @RequestBody TelevisionInputDTO televisionInputDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) { return ResponseEntity.badRequest().build(); }
-        return ResponseEntity.status(HttpStatus.CREATED).body(televisionService.createTelevision(televisionInputDTO));
-    }
-
-    @PostMapping("/addmore")
-    public ResponseEntity<List<TelevisionOutputDTO>> createTelevisions(
-            @Validated @RequestBody List<TelevisionInputDTO> televisionsInputDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) { return ResponseEntity.badRequest().build(); }
-        return new ResponseEntity<>(televisionService.createTelevisions(televisionsInputDTO), HttpStatus.CREATED);
+    @GetMapping
+    public List<Television> getAllTelevisions() {
+        return televisionService.getAllTelevisions();
     }
 
     @PutMapping("/{id}")

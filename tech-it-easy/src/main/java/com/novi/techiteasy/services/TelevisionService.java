@@ -1,7 +1,7 @@
 package com.novi.techiteasy.services;
 
-import com.novi.techiteasy.DTO.TelevisionInputDTO;
-import com.novi.techiteasy.DTO.TelevisionOutputDTO;
+import com.novi.techiteasy.DTO.Input.TelevisionInputDTO;
+import com.novi.techiteasy.DTO.Output.TelevisionOutputDTO;
 import com.novi.techiteasy.models.Television;
 import com.novi.techiteasy.exceptions.RecordNotFoundException;
 import com.novi.techiteasy.repositories.TelevisionRepository;
@@ -30,20 +30,6 @@ public class TelevisionService {
         return television;
     }
 
-    public List<Television> getAllTelevisions() {
-        List<Television> televisions = televisionRepository.findAll();
-        if (televisions.isEmpty()) { throw new RecordNotFoundException("There are currently no televisions in the database"); }
-
-        televisions.addAll(televisions);
-
-        return televisions;
-    }
-
-    public Television getTelevisionById(Long id) {
-        Television television = televisionRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("Television not found with id: " + id));;
-        return television;
-    }
-
     public TelevisionOutputDTO createTelevision(TelevisionInputDTO televisionInputDTO) {
         Television createdTelevision = televisionRepository.save(transferInputDTOToModel(televisionInputDTO));
         return transferModelToOutputDTO(createdTelevision);
@@ -61,6 +47,20 @@ public class TelevisionService {
             createdTelevisionsOutputDTO.add(televisionOutputDTO);
         }
         return createdTelevisionsOutputDTO;
+    }
+
+    public Television getTelevisionById(Long id) {
+        Television television = televisionRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("Television not found with id: " + id));;
+        return television;
+    }
+
+    public List<Television> getAllTelevisions() {
+        List<Television> televisions = televisionRepository.findAll();
+        if (televisions.isEmpty()) { throw new RecordNotFoundException("There are currently no televisions in the database"); }
+
+        televisions.addAll(televisions);
+
+        return televisions;
     }
 
     public TelevisionOutputDTO updateTelevision(Long id, TelevisionInputDTO updatedTelevisionInputDTO) {
