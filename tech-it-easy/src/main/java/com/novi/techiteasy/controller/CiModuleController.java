@@ -51,6 +51,10 @@ public class CiModuleController {
         return ResponseEntity.ok(ciModuleService.updateCiModule(id, ciModuleInputDTO));
     }
 
+    @PutMapping("/{id}/television/{television_id}")
+    public ResponseEntity<String> assignTelevisionToCiModule(@PathVariable Long id, @PathVariable Long television_id) {
+        return ResponseEntity.ok(ciModuleService.assignTelevisionToCiModule(id, television_id));
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCiModule(@PathVariable Long id) {

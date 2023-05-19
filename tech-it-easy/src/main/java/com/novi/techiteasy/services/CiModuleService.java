@@ -2,21 +2,31 @@ package com.novi.techiteasy.services;
 
 import com.novi.techiteasy.DTO.Input.CiModuleInputDTO;
 import com.novi.techiteasy.DTO.Output.CiModuleOutputDTO;
+import com.novi.techiteasy.DTO.Output.TelevisionOutputDTO;
 import com.novi.techiteasy.exceptions.RecordNotFoundException;
 import com.novi.techiteasy.models.CiModule;
+import com.novi.techiteasy.models.Remote;
+import com.novi.techiteasy.models.Television;
 import com.novi.techiteasy.repositories.CiModuleRepository;
+import com.novi.techiteasy.repositories.TelevisionRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CiModuleService {
 
-    @Autowired
-    private CiModuleRepository ciModuleRepository;
+    private final CiModuleRepository ciModuleRepository;
+    private final TelevisionRepository televisionRepository;
+
+    public CiModuleService(CiModuleRepository ciModuleRepository, TelevisionRepository televisionRepository) {
+        this.ciModuleRepository = ciModuleRepository;
+        this.televisionRepository = televisionRepository;
+    }
 
     public CiModuleOutputDTO transferModelToOutputDTO(CiModule ciModule) {
         CiModuleOutputDTO ciModuleOutputDTO = new CiModuleOutputDTO();
@@ -68,6 +78,19 @@ public class CiModuleService {
         CiModule updatedCiModule = ciModuleRepository.save(existingCiModule);
 
         return transferModelToOutputDTO(updatedCiModule);
+    }
+
+    public String assignTelevisionToCiModule(Long id, Long television_id) throws RecordNotFoundException {
+        Optional<CiModule> optionalCiModule = ciModuleRepository.findById(id);
+        Optional<Television> optionalTelevision = televisionRepository.findById(television_id);
+        if(optionalCiModule.isEmpty() && optionalCiModule.isEmpty()) {
+            throw new RecordNotFoundException("Television or CiModule with" + television_id + " and " + id + "does not exist");
+        }
+        CiModule ciModule = optionalCiModule.get();
+        Television television = optionalTelevision.get();
+        ciModule.setTelevision(television);
+        ciModuleRepository.save(ciModule);
+        return "Hoera!";
     }
 
     public void deleteCiModule(Long id) {

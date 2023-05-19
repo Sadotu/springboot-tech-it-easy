@@ -16,4 +16,7 @@ public class CiModule {
     private String name;
     private String type;
     private Double price;
+    @ManyToOne
+    @JoinColumn(name = "television_id")
+    private Television television;
 }

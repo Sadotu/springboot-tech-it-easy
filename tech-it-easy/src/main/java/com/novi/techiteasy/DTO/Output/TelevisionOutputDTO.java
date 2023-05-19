@@ -1,5 +1,6 @@
 package com.novi.techiteasy.DTO.Output;
 
+import com.novi.techiteasy.models.Remote;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,4 +26,5 @@ public class TelevisionOutputDTO {
     public Boolean ambiLight;
     public Integer originalStock;
     public Integer sold;
+    public Remote remote;
 }

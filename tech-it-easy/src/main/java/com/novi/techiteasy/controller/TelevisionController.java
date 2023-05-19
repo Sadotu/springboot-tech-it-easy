@@ -52,6 +52,15 @@ public class TelevisionController {
         return ResponseEntity.ok(televisionService.updateTelevision(id, televisionInputDTO));
     }
 
+    @PutMapping("/{id}/remote/{remote_id}")
+    public ResponseEntity<TelevisionOutputDTO> assignRemoteToTelevision(@PathVariable Long id, @PathVariable Long remote_id) {
+        return ResponseEntity.ok(televisionService.assignRemoteToTelevision(id, remote_id));
+    }
+
+    @PutMapping("/{id}/wallbracket/{wallbracket_id}")
+    public ResponseEntity<String> assignWallbracketToTelevision(@PathVariable Long id, @PathVariable Long wallbracket_id) {
+        return ResponseEntity.ok(televisionService.assignWallbracketToTelevision(id, wallbracket_id));
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTelevision(@PathVariable Long id) {

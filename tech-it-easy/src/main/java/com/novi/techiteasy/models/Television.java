@@ -1,8 +1,22 @@
 package com.novi.techiteasy.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.List;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
+//@JsonIgnoreProperties("{brand}")
 @Table(name = "television")
 public class Television {
 
@@ -12,6 +26,7 @@ public class Television {
 
     private String type;
 
+    //@JsonProperty("brand")
     private String brand;
 
     private String tvName;
@@ -42,139 +57,18 @@ public class Television {
 
     private Integer sold;
 
-    public Long getId() {
-        return id;
-    }
+    @OneToOne
+    @JsonIgnore
+    private Remote remote;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @OneToMany(mappedBy = "television")
+    private List<CiModule> ciModule;
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getTvName() {
-        return tvName;
-    }
-
-    public void setTvName(String name) {
-        this.tvName = name;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Double getAvailableSize() {
-        return availableSize;
-    }
-
-    public void setAvailableSize(Double availableSize) {
-        this.availableSize = availableSize;
-    }
-
-    public Double getRefreshRate() {
-        return refreshRate;
-    }
-
-    public void setRefreshRate(Double refreshRate) {
-        this.refreshRate = refreshRate;
-    }
-
-    public String getScreenType() {
-        return screenType;
-    }
-
-    public void setScreenType(String screenType) {
-        this.screenType = screenType;
-    }
-
-    public String getScreenQuality() {
-        return screenQuality;
-    }
-
-    public void setScreenQuality(String screenQuality) {
-        this.screenQuality = screenQuality;
-    }
-
-    public Boolean getSmartTv() {
-        return smartTv;
-    }
-
-    public void setSmartTv(Boolean smartTv) {
-        this.smartTv = smartTv;
-    }
-
-    public Boolean getWifi() {
-        return wifi;
-    }
-
-    public void setWifi(Boolean wifi) {
-        this.wifi = wifi;
-    }
-
-    public Boolean getVoiceControl() {
-        return voiceControl;
-    }
-
-    public void setVoiceControl(Boolean voiceControl) {
-        this.voiceControl = voiceControl;
-    }
-
-    public Boolean getHdr() {
-        return hdr;
-    }
-
-    public void setHdr(Boolean hdr) {
-        this.hdr = hdr;
-    }
-
-    public Boolean getBluetooth() {
-        return bluetooth;
-    }
-
-    public void setBluetooth(Boolean bluetooth) {
-        this.bluetooth = bluetooth;
-    }
-
-    public Boolean getAmbiLight() {
-        return ambiLight;
-    }
-
-    public void setAmbiLight(Boolean ambiLight) {
-        this.ambiLight = ambiLight;
-    }
-
-    public Integer getOriginalStock() {
-        return originalStock;
-    }
-
-    public void setOriginalStock(Integer originalStock) {
-        this.originalStock = originalStock;
-    }
-
-    public Integer getSold() {
-        return sold;
-    }
-
-    public void setSold(Integer sold) {
-        this.sold = sold;
-    }
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "television_wallbracket",
+            joinColumns = @JoinColumn(name = "television_id"),
+            inverseJoinColumns = @JoinColumn(name = "wallbracket_id")
+    )
+    private List<WallBracket> wallBrackets;
 }

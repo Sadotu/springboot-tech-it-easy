@@ -126,3 +126,7 @@ VALUES (9, 'Small', true, 'Product I', 89.99);
 
 INSERT INTO wall_bracket (id, size, ajustable, name, price)
 VALUES (10, 'Medium', false, 'Product J', 99.99);
+
+UPDATE television
+SET remote_id = 1
+WHERE id = 1;

@@ -1,5 +1,6 @@
 package com.novi.techiteasy.DTO.Input;
 
+import com.novi.techiteasy.models.Remote;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -30,4 +31,5 @@ public class TelevisionInputDTO {
     public Boolean ambiLight;
     public Integer originalStock;
     public Integer sold;
+    public Remote remote;
 }

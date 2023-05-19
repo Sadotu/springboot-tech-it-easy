@@ -18,4 +18,7 @@ public class Remote {
     private String brand;
     private double price;
     private Integer originalStock;
+
+    @OneToOne(mappedBy = "remote")
+    private Television television;
 }
